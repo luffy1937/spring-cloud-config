@@ -241,6 +241,15 @@ public abstract class AbstractScmAccessor implements ResourceLoaderAware {
 					String value = location;
 					if (app != null) {
 						value = value.replace("{application}", app);
+						/**
+						 * 增加{applicationPrefix}占位符，{applicationPrefix}的取值由application.split("_")[0]得到
+						 */
+						if (app.matches(".+_.*")) {
+							String[] splits = app.split("_");
+							String applicationPrefix = splits[0];
+							value = value.replace("{applicationPrefix}",
+									applicationPrefix);
+						}
 					}
 					if (prof != null) {
 						value = value.replace("{profile}", prof);

@@ -214,6 +214,14 @@ public class MultipleJGitEnvironmentRepository extends JGitEnvironmentRepository
 		}
 		if (application != null) {
 			key = key.replace("{application}", application);
+			/**
+			 * 增加{applicationPrefix}占位符，{applicationPrefix}的取值由application.split("_")[0]得到
+			 */
+			if (application.matches(".+_.*")) {
+				String[] splits = application.split("_");
+				String applicationPrefix = splits[0];
+				key = key.replace("{applicationPrefix}", applicationPrefix);
+			}
 		}
 		if (profile != null) {
 			key = key.replace("{profile}", profile);
